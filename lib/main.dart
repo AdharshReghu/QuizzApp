@@ -13,6 +13,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Icon> iconlist = [];
+  List<String> questionlist = [
+    'Circles have infinite corners',
+    'Flutter is an easy framework to build both android and ios applications having different base code',
+    'India got independence in 1948'
+  ];
+  List<bool> Answers = [true, false, false];
+  int qnumber = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +33,8 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: Center(
                   child: Text(
-                    "This is where question is displayed",
+                    questionlist[qnumber],
+                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
@@ -35,11 +43,17 @@ class _MyAppState extends State<MyApp> {
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: TextButton(
                     onPressed: () {
+                      bool correctAns = Answers[qnumber];
                       setState(() {
-                        iconlist.add(Icon(
-                          Icons.check,
-                          color: Colors.green,
-                        ));
+                        if (correctAns == true) {
+                          iconlist.add(
+                            Icon(
+                              Icons.check,
+                              color: Colors.green,
+                            ),
+                          );
+                        }
+                        qnumber++;
                       });
                     },
                     style: ButtonStyle(
@@ -47,7 +61,7 @@ class _MyAppState extends State<MyApp> {
                             MaterialStateProperty.all(Colors.green),
                         foregroundColor:
                             MaterialStateProperty.all(Colors.white)),
-                    child: SizedBox(
+                    child: const SizedBox(
                       height: 60,
                       child: Center(
                           child: Text(
@@ -60,18 +74,24 @@ class _MyAppState extends State<MyApp> {
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: TextButton(
                     onPressed: () {
+                      bool correctAns = Answers[qnumber];
                       setState(() {
-                        iconlist.add(Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        ));
+                        if (correctAns == false) {
+                          iconlist.add(
+                            Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          );
+                        }
+                        qnumber++;
                       });
                     },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.red),
                         foregroundColor:
                             MaterialStateProperty.all(Colors.white)),
-                    child: SizedBox(
+                    child: const SizedBox(
                       height: 60,
                       child: Center(
                           child: Text(
