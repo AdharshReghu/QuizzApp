@@ -12,6 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<Icon> iconlist = [];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Expanded(
+              Expanded(
                 child: Center(
                   child: Text(
                     "This is where question is displayed",
@@ -31,16 +32,22 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        iconlist.add(Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ));
+                      });
+                    },
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.green),
                         foregroundColor:
                             MaterialStateProperty.all(Colors.white)),
-                    child: const SizedBox(
+                    child: SizedBox(
                       height: 60,
                       child: Center(
                           child: Text(
@@ -50,15 +57,21 @@ class _MyAppState extends State<MyApp> {
                     )),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        iconlist.add(Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ));
+                      });
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.red),
                         foregroundColor:
                             MaterialStateProperty.all(Colors.white)),
-                    child: const SizedBox(
+                    child: SizedBox(
                       height: 60,
                       child: Center(
                           child: Text(
@@ -68,18 +81,9 @@ class _MyAppState extends State<MyApp> {
                     )),
               ),
               Row(
-                children: const [
-                  Icon(
-                    Icons.check,
-                    color: Colors.green,
-                  ),
-                  Icon(
-                    (Icons.close),
-                    color: Colors.red,
-                  )
-                ],
+                children: iconlist,
               ),
-              const SizedBox(
+              SizedBox(
                 height: 15,
               )
             ],
