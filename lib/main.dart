@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'quizbrain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() {
   runApp(const MyApp());
@@ -13,12 +16,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   List<Icon> iconlist = [];
-  List<String> questionlist = [
-    'Circles have infinite corners',
-    'Flutter is an easy framework to build both android and ios applications having different base code',
-    'India got independence in 1948'
-  ];
-  List<bool> Answers = [true, false, false];
+  late bool answer;
   int qnumber = 0;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: Center(
                   child: Text(
-                    questionlist[qnumber],
+                    quizBrain.questions[qnumber].questionText,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
@@ -43,18 +41,25 @@ class _MyAppState extends State<MyApp> {
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: TextButton(
                     onPressed: () {
-                      bool correctAns = Answers[qnumber];
                       setState(() {
-                        if (correctAns == true) {
+                        answer = quizBrain.questions[qnumber].questionAnswer;
+                        if (answer == true) {
                           iconlist.add(
                             Icon(
                               Icons.check,
                               color: Colors.green,
                             ),
                           );
+                        } else {
+                          iconlist.add(
+                            Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          );
                         }
-                        qnumber++;
                       });
+                      qnumber++;
                     },
                     style: ButtonStyle(
                         backgroundColor:
@@ -74,13 +79,20 @@ class _MyAppState extends State<MyApp> {
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 child: TextButton(
                     onPressed: () {
-                      bool correctAns = Answers[qnumber];
                       setState(() {
-                        if (correctAns == false) {
+                        answer = quizBrain.questions[qnumber].questionAnswer;
+                        if (answer == true) {
                           iconlist.add(
                             Icon(
                               Icons.close,
                               color: Colors.red,
+                            ),
+                          );
+                        } else {
+                          iconlist.add(
+                            Icon(
+                              Icons.check,
+                              color: Colors.green,
                             ),
                           );
                         }
