@@ -1,7 +1,8 @@
 import 'question.dart';
 
 class QuizBrain {
-  late List<Question> questions = [
+  int _qnumber = 0;
+  late List<Question> _questions = [
     Question('Circles have infinite corners', true),
     Question(
         'Flutter is an easy framework to build both android and ios applications having different base code',
@@ -33,4 +34,17 @@ class QuizBrain {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+  GetNextQuestion() {
+    if (_qnumber < _questions.length - 1) {
+      _qnumber++;
+    }
+  }
+
+  String GetQuestionText() {
+    return _questions[_qnumber].questionText;
+  }
+
+  bool GetQuestionAns() {
+    return _questions[_qnumber].questionAnswer;
+  }
 }

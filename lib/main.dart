@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   List<Icon> iconlist = [];
   late bool answer;
-  int qnumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: Center(
                   child: Text(
-                    quizBrain.questions[qnumber].questionText,
+                    quizBrain.GetQuestionText(),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
                 child: TextButton(
                     onPressed: () {
                       setState(() {
-                        answer = quizBrain.questions[qnumber].questionAnswer;
+                        answer = quizBrain.GetQuestionAns();
                         if (answer == true) {
                           iconlist.add(
                             Icon(
@@ -58,8 +58,8 @@ class _MyAppState extends State<MyApp> {
                             ),
                           );
                         }
+                        quizBrain.GetNextQuestion();
                       });
-                      qnumber++;
                     },
                     style: ButtonStyle(
                         backgroundColor:
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                 child: TextButton(
                     onPressed: () {
                       setState(() {
-                        answer = quizBrain.questions[qnumber].questionAnswer;
+                        answer = quizBrain.GetQuestionAns();
                         if (answer == true) {
                           iconlist.add(
                             Icon(
@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                             ),
                           );
                         }
-                        qnumber++;
+                        quizBrain.GetNextQuestion();
                       });
                     },
                     style: ButtonStyle(
