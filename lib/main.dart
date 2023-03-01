@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'quizbrain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -19,22 +20,30 @@ class _MyAppState extends State<MyApp> {
   late bool answer;
   void Checkans(bool userpicked) {
     answer = quizBrain.GetQuestionAns();
-    if (answer == userpicked) {
-      iconlist.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
-    } else {
-      iconlist.add(
-        Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
-    }
-    quizBrain.GetNextQuestion();
+    setState(() {
+      if (quizBrain.isFinished()) {
+        print("last question reached");
+        quizBrain.reset();
+        iconlist.clear();
+      } else {
+        if (answer == userpicked) {
+          iconlist.add(
+            Icon(
+              Icons.close,
+              color: Colors.red,
+            ),
+          );
+        } else {
+          iconlist.add(
+            Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+          );
+        }
+        quizBrain.GetNextQuestion();
+      }
+    });
   }
 
   @override

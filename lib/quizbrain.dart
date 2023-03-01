@@ -3,11 +3,6 @@ import 'question.dart';
 class QuizBrain {
   int _qnumber = 0;
   late List<Question> _questions = [
-    Question('Circles have infinite corners', true),
-    Question(
-        'Flutter is an easy framework to build both android and ios applications having different base code',
-        false),
-    Question('India got independence in 1948', false),
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -46,5 +41,17 @@ class QuizBrain {
 
   bool GetQuestionAns() {
     return _questions[_qnumber].questionAnswer;
+  }
+
+  bool isFinished() {
+    if (_qnumber == _questions.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void reset() {
+    _qnumber = 0;
   }
 }
