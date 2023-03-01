@@ -16,13 +16,40 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: QuizApp(),
+        ),
+      ),
+    );
+  }
+}
+
+class QuizApp extends StatefulWidget {
+  const QuizApp({Key? key}) : super(key: key);
+
+  @override
+  State<QuizApp> createState() => _QuizAppState();
+}
+
+class _QuizAppState extends State<QuizApp> {
   List<Icon> iconlist = [];
   late bool answer;
+
   void Checkans(bool userpicked) {
     answer = quizBrain.GetQuestionAns();
     setState(() {
       if (quizBrain.isFinished()) {
         print("last question reached");
+        Alert(
+                context: context,
+                title: "CONGRADULATIONS",
+                desc: "You have successfully completed the quiz.")
+            .show();
         quizBrain.reset();
         iconlist.clear();
       } else {
@@ -48,79 +75,68 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Center(
-                    child: Text(
-                      quizBrain.GetQuestionText(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          Checkans(true);
-                        });
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.green),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white)),
-                      child: const SizedBox(
-                        height: 60,
-                        child: Center(
-                            child: Text(
-                          "True",
-                          style: TextStyle(fontSize: 20),
-                        )),
-                      )),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          Checkans(false);
-                        });
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.red),
-                          foregroundColor:
-                              MaterialStateProperty.all(Colors.white)),
-                      child: const SizedBox(
-                        height: 60,
-                        child: Center(
-                            child: Text(
-                          "False",
-                          style: TextStyle(fontSize: 20),
-                        )),
-                      )),
-                ),
-                Row(
-                  children: iconlist,
-                ),
-                SizedBox(
-                  height: 15,
-                )
-              ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: Center(
+              child: Text(
+                quizBrain.GetQuestionText(),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
             ),
           ),
-        ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    Checkans(true);
+                  });
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green),
+                    foregroundColor: MaterialStateProperty.all(Colors.white)),
+                child: const SizedBox(
+                  height: 60,
+                  child: Center(
+                      child: Text(
+                    "True",
+                    style: TextStyle(fontSize: 20),
+                  )),
+                )),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    Checkans(false);
+                  });
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                    foregroundColor: MaterialStateProperty.all(Colors.white)),
+                child: const SizedBox(
+                  height: 60,
+                  child: Center(
+                      child: Text(
+                    "False",
+                    style: TextStyle(fontSize: 20),
+                  )),
+                )),
+          ),
+          Row(
+            children: iconlist,
+          ),
+          SizedBox(
+            height: 15,
+          )
+        ],
       ),
     );
   }
