@@ -47,7 +47,7 @@ class _QuizAppState extends State<QuizApp> {
         print("last question reached");
         Alert(
                 context: context,
-                title: "CONGRADULATIONS",
+                title: "CONGRATULATIONS",
                 desc: "You have successfully completed the quiz.")
             .show();
         quizBrain.reset();
